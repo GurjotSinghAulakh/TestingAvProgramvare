@@ -97,6 +97,8 @@ public class EnhetstestAdminKontoController {
 
     }
 
+    /*------------------------------------- Registrer Konto ------------------------------------*/
+
 
     // Tester registrer konto  (Logget Inn - OK)
     @Test
@@ -155,6 +157,8 @@ public class EnhetstestAdminKontoController {
 
     }
 
+
+    /*------------------------------------- Endre Konto ------------------------------------*/
 
     // Tester endre konto  (Logget Inn - OK)
 
@@ -216,6 +220,8 @@ public class EnhetstestAdminKontoController {
         assertNull(resultat);
     }
 
+
+    /*------------------------------------- Slett Konto ------------------------------------*/
 
     // Tester slett konto  (Logget Inn - OK)
     @Test
