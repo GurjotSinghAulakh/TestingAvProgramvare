@@ -35,6 +35,9 @@ public class EnhetstestAdminKundeController {
     private Sikkerhet sjekk;
 
 
+    /*------------------------------------- Hent Alle Kunder ------------------------------------*/
+
+    // Tester hent alle kunder (Logget Inn_OK)
     @Test
     public void hentAlleOK(){
         // arrage
@@ -59,6 +62,7 @@ public class EnhetstestAdminKundeController {
 
     }
 
+    // Tester hent alle kunder (Logget Inn_Feil)
     @Test
     public void hentAlleFeil(){
 
@@ -74,8 +78,29 @@ public class EnhetstestAdminKundeController {
 
     }
 
+    // Tester hent alle kunder (Ikke Logget Inn)
+    @Test
+    public void hentAlle_IkkeLoggetInn(){
+
+        // arrage
+        //denne setningen er den som gir error av mockito.
+        when(repository.hentAlleKunder()).thenReturn(null);
+
+        // act
+        List<Kunde> resultat = adminKundeController.hentAlle();
+
+        // assert
+        assertNull(resultat);
+
+    }
 
 
+
+
+
+    /*------------------------------------- Lagre Kunde ------------------------------------*/
+
+    // Tester lagre kunde (Logget Inn_OK)
     @Test
     public void lagreKundeOK(){
         // arrage
@@ -95,6 +120,7 @@ public class EnhetstestAdminKundeController {
     }
 
 
+    // Tester lagre kunde (Logget Inn_Feil)
     @Test
     public void lagreKundeFeil(){
 
@@ -116,7 +142,33 @@ public class EnhetstestAdminKundeController {
 
     }
 
+    // Tester lagre kunde (Ikke Logget Inn)
+    @Test
+    public void lagreKunde_IkkeLoggetInn(){
 
+        // arrage
+        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo","22224444", "HeiHei");
+
+        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
+        when(sjekk.loggetInn()).thenReturn(null);
+        when(repository.registrerKunde((any(Kunde.class)))).thenReturn("Ikke logget inn");
+
+        // act
+
+        String resultat = adminKundeController.lagreKunde(kunde1);
+
+
+        // assert
+        assertEquals("Ikke logget inn", resultat);
+
+    }
+
+
+
+    /*------------------------------------- Endre Kunde ------------------------------------*/
+
+
+    // Tester endre kunde (Logget Inn_OK)
     @Test
     public void endreKundeOK(){
 
@@ -136,6 +188,7 @@ public class EnhetstestAdminKundeController {
     }
 
 
+    // Tester endre kunde (Logget Inn_Feil)
     @Test
     public void endreKundeFeil(){
         // arrage
@@ -155,7 +208,30 @@ public class EnhetstestAdminKundeController {
 
     }
 
+    // Tester endre kunde (Ikke Logget Inn)
+    @Test
+    public void endreKunde_IkkeLoggetInn(){
+        // arrage
+        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo","22224444", "HeiHei");
 
+        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        when(repository.endreKundeInfo(any(Kunde.class))).thenReturn("Ikke logget inn");
+
+        // act
+        String resultat = adminKundeController.endre(kunde1);
+
+        // assert
+        assertEquals("Ikke logget inn", resultat);
+
+
+    }
+
+
+    /*------------------------------------- Slett Kunde ------------------------------------*/
+
+    // Tester slett kunde (Logget Inn_OK)
     @Test
     public void slettKundeOK(){
 
@@ -171,6 +247,7 @@ public class EnhetstestAdminKundeController {
         assertEquals("OK", resultat);
     }
 
+    // Tester slett kunde (Logget Inn_Feil)
     @Test
     public void slettKundeFeil(){
 
@@ -184,6 +261,23 @@ public class EnhetstestAdminKundeController {
 
         // assert
         assertEquals("Feil",resultat);
+
+    }
+
+    // Tester slett kunde (Ikke Logget Inn)
+    @Test
+    public void slettKunde_IkkeLoggetInn(){
+
+        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        when(repository.slettKunde(anyString())).thenReturn("Ikke logget inn");
+
+        // act
+        String resultat = adminKundeController.slett("01010110523");
+
+        // assert
+        assertEquals("Ikke logget inn",resultat);
 
     }
 

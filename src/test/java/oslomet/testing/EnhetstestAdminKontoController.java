@@ -145,15 +145,15 @@ public class EnhetstestAdminKontoController {
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
 
-        when(sjekk.loggetInn()).thenReturn("105010123456");
+        when(sjekk.loggetInn()).thenReturn(null);
 
-        when(repository.registrerKonto(any(Konto.class))).thenReturn(null);
+        when(repository.registrerKonto(any(Konto.class))).thenReturn("Ikke innlogget");
 
         // act
         String resultat = adminKontoController.registrerKonto(konto1);
 
         // assert
-        assertNull(resultat);
+        assertEquals("Ikke innlogget", resultat);
 
     }
 
@@ -209,15 +209,15 @@ public class EnhetstestAdminKontoController {
                 720, "Lønnskonto", "NOK", null);
 
         // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
-        when(sjekk.loggetInn()).thenReturn("105010123456");
+        when(sjekk.loggetInn()).thenReturn(null);
 
-        when(repository.endreKonto(any(Konto.class))).thenReturn(null);
+        when(repository.endreKonto(any(Konto.class))).thenReturn("Ikke innlogget");
 
         // act
         String resultat = adminKontoController.endreKonto(konto1);
 
         // assert
-        assertNull(resultat);
+        assertEquals("Ikke innlogget", resultat);
     }
 
 
@@ -262,16 +262,16 @@ public class EnhetstestAdminKontoController {
     @Test
     public void slettKonto_IkkeLoggetInn(){
         // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
-        when(sjekk.loggetInn()).thenReturn("105010123456");
+        when(sjekk.loggetInn()).thenReturn(null);
 
-        when(repository.slettKonto(anyString())).thenReturn(null);
+        when(repository.slettKonto(anyString())).thenReturn("Ikke innlogget");
 
         // act
         String resultat = adminKontoController.slettKonto("105010123456");
 
 
         // assert
-        assertNull(resultat);
+        assertEquals("Ikke innlogget", resultat);
 
     }
 
