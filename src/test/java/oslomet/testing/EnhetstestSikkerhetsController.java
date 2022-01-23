@@ -136,6 +136,7 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void test_LoggetUt(){
 
+        session.setAttribute("Innlogget", null);
         // ikke ferdig med
         sikkerhetsController.loggUt();
 
