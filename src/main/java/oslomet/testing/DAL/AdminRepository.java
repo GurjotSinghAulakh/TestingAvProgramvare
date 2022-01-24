@@ -36,6 +36,7 @@ public class AdminRepository {
         catch (Exception e){
             return "Feil";
         }
+
         if(etPostSted == 0)
         {
             // ligger ikke i poststedstabellen
@@ -47,6 +48,7 @@ public class AdminRepository {
                 return "Feil";
             }
         }
+
         // oppdater Kunde-tabellen
         try {
            sql = "Update Kunde Set Fornavn = ?, Etternavn = ?," +
@@ -160,7 +162,7 @@ public class AdminRepository {
             db.update(sql,kontonummer);
         }
         catch(Exception e){
-            return "Feil kononummer";
+            return "Feil kontonummer";
         }
         return "OK";
     }
