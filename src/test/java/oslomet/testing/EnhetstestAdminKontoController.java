@@ -35,15 +35,16 @@ public class EnhetstestAdminKontoController {
     // denne skal Mock'es
     private Sikkerhet sjekk;
 
+
     /*------------------------------------- Hent Alle Konto Informasjon ------------------------------------*/
 
-    // Tester hent AllKonti (Logget Inn - OK)
-
+    // Tester hent alle Konto (Logget Inn - OK)
     @Test
     public void hentAlleKonti_LoggetInn_OK(){
         // arrage
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
+
         Konto konto2 = new Konto("105010123456", "12345678901",
                 1000, "Lønnskonto", "NOK", null);
 
@@ -63,13 +64,11 @@ public class EnhetstestAdminKontoController {
         assertEquals(kontoList, resultat);
     }
 
-    // Tester hent AllKonti (Logget Inn - Feil)
-
+    // Tester hent alle Konto (Logget Inn - Feil)
     @Test
     public void hentAlleKonti_LoggetInn_Feil() {
-
         // arrage
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sjekk.loggetInn()).thenReturn("105010123456");
 
         when(repository.hentAlleKonti()).thenReturn(null);
 
@@ -80,29 +79,24 @@ public class EnhetstestAdminKontoController {
         assertNull(resultat);
     }
 
-    // Tester hent AllKonti (Ikke Logget Inn)
+    // Tester hent alle Konto (Ikke Logget Inn)
     @Test
     public void hentAlleKonti_IkkeLoggetInn(){
-
         // arrage
         when(sjekk.loggetInn()).thenReturn(null);
-
-        when(repository.hentAlleKonti()).thenReturn(null);
 
         // act
         List<Konto> resultat = adminKontoController.hentAlleKonti();
 
         // assert
         assertNull(resultat);
-
     }
 
     /*------------------------------------- Registrer Konto ------------------------------------*/
 
-
-    // Tester registrer konto  (Logget Inn - OK)
+    // Tester registrer konto (Logget Inn - OK)
     @Test
-    public void registrerKontoOK(){
+    public void registrerKonto_LoggetInn_OK(){
         // arrage
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
@@ -116,12 +110,11 @@ public class EnhetstestAdminKontoController {
 
         // assert
         assertEquals("OK", resultat);
-
     }
 
-    // Tester registrer konto  (Logget Inn - Feil)
+    // Tester registrer konto (Logget Inn - Feil)
     @Test
-    public void registrerKontoFeil(){
+    public void registrerKonto_LoggetInn_Feil(){
         // arrage
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
@@ -135,10 +128,9 @@ public class EnhetstestAdminKontoController {
 
         // assert
         assertEquals("Feil", resultat);
-
     }
 
-    // Tester registrer konto  (Ikke Logget Inn)
+    // Tester registrer konto (Ikke Logget Inn)
     @Test
     public void registrerKonto_IkkeLoggetInn(){
         // arrage
@@ -147,49 +139,40 @@ public class EnhetstestAdminKontoController {
 
         when(sjekk.loggetInn()).thenReturn(null);
 
-        when(repository.registrerKonto(any(Konto.class))).thenReturn("Ikke innlogget");
-
         // act
         String resultat = adminKontoController.registrerKonto(konto1);
 
         // assert
         assertEquals("Ikke innlogget", resultat);
-
     }
-
 
     /*------------------------------------- Endre Konto ------------------------------------*/
 
-    // Tester endre konto  (Logget Inn - OK)
-
+    // Tester endre konto (Logget Inn - OK)
     @Test
-    public void endreKonto_OK(){
+    public void endreKonto_LoggetInn_OK(){
         // arrage
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
 
-        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
         when(sjekk.loggetInn()).thenReturn("105010123456");
 
         when(repository.endreKonto(any(Konto.class))).thenReturn("OK");
-
 
         // act
         String resultat = adminKontoController.endreKonto(konto1);
 
         // assert
         assertEquals("OK", resultat);
-
     }
 
-    // Tester endre konto  (Logget Inn - Feil)
+    // Tester endre konto (Logget Inn - Feil)
     @Test
-    public void endreKontoFeil(){
+    public void endreKonto_LoggetInn_Feil(){
         // arrage
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
 
-        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
         when(sjekk.loggetInn()).thenReturn("105010123456");
 
         when(repository.endreKonto(any(Konto.class))).thenReturn("Feil");
@@ -201,17 +184,14 @@ public class EnhetstestAdminKontoController {
         assertEquals("Feil", resultat);
     }
 
-    // Tester endre konto  (Ikke Logget Inn)
+    // Tester endre konto (Ikke Logget Inn)
     @Test
     public void endreKonto_IkkeLoggetInn(){
         // arrage
         Konto konto1 = new Konto("105010123456", "01010110523",
                 720, "Lønnskonto", "NOK", null);
 
-        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
         when(sjekk.loggetInn()).thenReturn(null);
-
-        when(repository.endreKonto(any(Konto.class))).thenReturn("Ikke innlogget");
 
         // act
         String resultat = adminKontoController.endreKonto(konto1);
@@ -220,31 +200,27 @@ public class EnhetstestAdminKontoController {
         assertEquals("Ikke innlogget", resultat);
     }
 
-
     /*------------------------------------- Slett Konto ------------------------------------*/
 
-    // Tester slett konto  (Logget Inn - OK)
+    // Tester slett konto (Logget Inn - OK)
     @Test
-    public void slettKontoOK(){
-        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
+    public void slettKonto_LoggetInn_OK(){
+        //arrage
         when(sjekk.loggetInn()).thenReturn("105010123456");
 
         when(repository.slettKonto(anyString())).thenReturn("OK");
-
 
         // act
         String resultat = adminKontoController.slettKonto("105010123456");
 
         // assert
         assertEquals("OK", resultat);
-
     }
 
-
-    // Tester slett konto  (Logget Inn - Feil)
+    // Tester slett konto (Logget Inn - Feil)
     @Test
-    public void slettKontoFeil(){
-        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
+    public void slettKonto_LoggetInn_Feil(){
+        //arrage
         when(sjekk.loggetInn()).thenReturn("105010123456");
 
         when(repository.slettKonto(anyString())).thenReturn("Feil");
@@ -252,29 +228,20 @@ public class EnhetstestAdminKontoController {
         // act
         String resultat = adminKontoController.slettKonto("105010123456");
 
-
         // assert
         assertEquals("Feil", resultat);
-
     }
 
-    // Tester slett konto  (Ikke Logget Inn)
+    // Tester slett konto (Ikke Logget Inn)
     @Test
     public void slettKonto_IkkeLoggetInn(){
-        // denne skal være med, uten den så får vi en error for at man "ikke er logget inn".
+        // arrage
         when(sjekk.loggetInn()).thenReturn(null);
-
-        when(repository.slettKonto(anyString())).thenReturn("Ikke innlogget");
 
         // act
         String resultat = adminKontoController.slettKonto("105010123456");
 
-
         // assert
         assertEquals("Ikke innlogget", resultat);
-
     }
-
-
-
 }
