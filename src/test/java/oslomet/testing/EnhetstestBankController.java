@@ -131,7 +131,6 @@ public class EnhetstestBankController {
     @Test
     public void hentKonti_IkkeLoggetInn()  {
         // arrange
-
         when(sjekk.loggetInn()).thenReturn(null);
 
         // act
