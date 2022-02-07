@@ -74,7 +74,7 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void test_sjekkLoggetInn_Feil() {
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer eller passord");
+         when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer eller passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","HeiHeiHei");
@@ -85,7 +85,7 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void test_sjekkLoggetInn_FeilPersonnummer() {
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer");
+        // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("","HeiHeiHei");
@@ -96,7 +96,7 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void test_sjekkLoggetInn_FeilPassord() {
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
+        // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","");
@@ -147,7 +147,7 @@ public class EnhetstestSikkerhetsController {
     public void test_LoggInnAdmin_OK(){
 
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Logget inn");
+       // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Logget inn");
 
         session.setAttribute("Innlogget", "Admin");
 
@@ -162,7 +162,7 @@ public class EnhetstestSikkerhetsController {
     public void test_LoggInnAdmin_Feil(){
 
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Ikke logget inn");
+        // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Ikke logget inn");
 
         session.setAttribute("Innlogget", null);
 
