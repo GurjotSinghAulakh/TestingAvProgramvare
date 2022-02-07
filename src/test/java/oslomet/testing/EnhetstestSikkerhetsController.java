@@ -58,111 +58,96 @@ public class EnhetstestSikkerhetsController {
 
     }
 
-    // Tester for å sjekke om man er logget inn  (Logget Inn - OK)
+    /*------------------------------------- Hent Konti ------------------------------------*/
+
+    // Tester sjekk LoggInn (Logget Inn - OK)
     @Test
-    public void test_sjekkLoggetInn() {
+    public void sjekkLoggInn_OK() {
         // arrange
         when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("OK");
 
+        // usikker
+        session.setAttribute(any(), eq(" "));
+
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","HeiHeiHei");
+
         // assert
         assertEquals("OK", resultat);
     }
 
-    // Tester for å sjekke om man er logget inn Feil (Logget Inn - Feil)
+    // Tester sjekk LoggInn (Logget Inn - Feil)
     @Test
-    public void test_sjekkLoggetInn_Feil() {
+    public void sjekkLoggInn_Feil() {
         // arrange
          when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer eller passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","HeiHeiHei");
+
         // assert
         assertEquals("Feil i personnummer eller passord", resultat);
     }
 
+    // Tester sjekk LoggInn (Ikke Logget Inn - Feil Personnummer)
     @Test
-    public void test_sjekkLoggetInn_FeilPersonnummer() {
+    public void sjekkLoggInn_FeilPersonnummer() {
         // arrange
-        // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer");
+        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("","HeiHeiHei");
+
         // assert
         assertEquals("Feil i personnummer", resultat);
     }
 
+    // Tester sjekk LoggInn (Ikke Logget Inn - Feil Passord)
     @Test
-    public void test_sjekkLoggetInn_FeilPassord() {
+    public void sjekkLoggInn_FeilPassord() {
         // arrange
-        // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
+        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","");
+
         // assert
         assertEquals("Feil i passord", resultat);
     }
 
+    /*------------------------------------- Logg ut ------------------------------------*/
 
-
+    /* Tester LoggUt (Ikke nødvendig siden denne metoden i
+     sikkerhetscontrolleren er void ) */
     @Test
-    public void test_LoggetInn(){
-        // arrange
-        session.setAttribute("Innlogget", "12345678901");
-
-        // act
-        String resultat = sikkerhetsController.loggetInn();
-
-        // assert
-        assertEquals("12345678901",resultat);
-
-    }
-
-    @Test
-    public void test_LoggetInn_Feil(){
-        // arrange
-        session.setAttribute(null, null);
-
-        // act
-        String resultat = sikkerhetsController.loggetInn();
-
-        // assert
-        assertNull(resultat);
-
-    }
-
-
-    @Test
-    public void test_LoggetUt(){
-
+    public void LoggUt(){
         session.setAttribute("Innlogget", null);
         // ikke ferdig med
         sikkerhetsController.loggUt();
-
-
     }
 
-    @Test
-    public void test_LoggInnAdmin_OK(){
+    /*------------------------------------- LoggInn Admin ------------------------------------*/
 
+    // Tester LoggInn Admin (Logget Inn - OK)
+    @Test
+    public void LoggInnAdmin_OK(){
         // arrange
-       // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Logget inn");
+        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Logget inn");
 
         session.setAttribute("Innlogget", "Admin");
 
         // act
         String resultat = sikkerhetsController.loggInnAdmin("Admin","Admin");
+
         // assert
         assertEquals("Logget inn", resultat);
-
     }
 
+    // Tester LoggInn Admin (Ikke Logget Inn - Feil )
     @Test
-    public void test_LoggInnAdmin_Feil(){
-
+    public void LoggInnAdmin_Feil(){
         // arrange
-        // when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Ikke logget inn");
+        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Ikke logget inn");
 
         session.setAttribute("Innlogget", null);
 
@@ -173,8 +158,33 @@ public class EnhetstestSikkerhetsController {
 
     }
 
+    /*------------------------------------- Logget Inn ------------------------------------*/
 
+    // Tester Logget Inn (Logget Inn - OK)
+    @Test
+    public void LoggetInn_OK(){
+        // arrange
+        session.setAttribute("Innlogget", "12345678901");
 
+        // act
+        String resultat = sikkerhetsController.loggetInn();
+
+        // assert
+        assertEquals("12345678901", resultat);
+    }
+
+    // Tester Logget Inn (Logget Inn - Feil)
+    @Test
+    public void LoggetInn_Feil(){
+        // arrange
+        session.setAttribute(null, null);
+
+        // act
+        String resultat = sikkerhetsController.loggetInn();
+
+        // assert
+        assertNull(resultat);
+    }
 }
 
 
