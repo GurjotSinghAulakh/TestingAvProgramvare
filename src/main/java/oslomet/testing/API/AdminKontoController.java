@@ -6,6 +6,7 @@ import oslomet.testing.DAL.AdminRepository;
 import oslomet.testing.Models.Konto;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class AdminKontoController {
     }
 
     @PostMapping("/registrer")
-    public String registrerKonto(@RequestBody Konto konto) {
+    public String registrerKonto(Konto konto) {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
             String retur = repository.registrerKonto(konto);
@@ -52,5 +53,15 @@ public class AdminKontoController {
            return repository.slettKonto(kontonummer);
         }
         return "Ikke innlogget";
+    }
+
+    // det under er brukt i integrasjonstesten
+    // behøver ikke å  enhetstestes da dette ikke er en del av applikasjonen
+    @Autowired
+    private DataSource dataSource;
+
+    @GetMapping("/initDB")
+    public String initDB(){
+        return repository.initDB(dataSource);
     }
 }

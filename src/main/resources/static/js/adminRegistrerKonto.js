@@ -2,7 +2,7 @@
 $(function(){
     $("#regKonto").click(function(){
         const url = "/adminKonto/registrer";
-        const konto = {
+            const konto = {
             kontonummer    : $("#kontoNr").val(),
             type                    : $("#type").val(),
             valuta                 : $("#valuta").val(),

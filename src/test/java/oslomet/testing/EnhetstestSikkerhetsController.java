@@ -66,8 +66,6 @@ public class EnhetstestSikkerhetsController {
         // arrange
         when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("OK");
 
-        // usikker
-        session.setAttribute(any(), eq(" "));
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","HeiHeiHei");
