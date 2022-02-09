@@ -38,7 +38,7 @@ public class AdminKontoController {
     }
 
     @PostMapping("/endre")
-    public String endreKonto(@RequestBody Konto konto) {
+    public String endreKonto(Konto konto) {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
             return repository.endreKonto(konto);
