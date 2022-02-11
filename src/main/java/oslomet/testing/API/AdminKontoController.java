@@ -23,7 +23,7 @@ public class AdminKontoController {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
             return repository.hentAlleKonti();
-        }
+        } 
         return null;
     }
 

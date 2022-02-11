@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
@@ -103,7 +104,7 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void sjekkLoggInn_FeilPassord() {
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
+        Mockito.when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","");

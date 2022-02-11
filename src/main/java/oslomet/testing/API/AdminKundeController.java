@@ -28,7 +28,7 @@ public class AdminKundeController {
     }
 
     @PostMapping("/lagre")
-    public String lagreKunde(@RequestBody Kunde innKunde) {
+    public String lagreKunde(Kunde innKunde) {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
             return repository.registrerKunde(innKunde);
@@ -37,7 +37,7 @@ public class AdminKundeController {
     }
 
     @PostMapping("/endre")
-    public String endre(@RequestBody Kunde innKunde) {
+    public String endre(Kunde innKunde) {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
             return repository.endreKundeInfo(innKunde);
