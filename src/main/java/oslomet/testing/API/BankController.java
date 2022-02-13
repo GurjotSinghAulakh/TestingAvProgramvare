@@ -51,7 +51,7 @@ public class BankController {
     }
 
     @PostMapping("/registrerBetaling")
-    public String registrerBetaling(@RequestBody Transaksjon betaling) {
+    public String registrerBetaling(Transaksjon betaling) {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
             return repository.registrerBetaling(betaling);
