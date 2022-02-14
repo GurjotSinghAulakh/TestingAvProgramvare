@@ -90,11 +90,9 @@ public class EnhetstestSikkerhetsController {
     // Tester sjekk LoggInn (Ikke Logget Inn - Feil Personnummer)
     @Test
     public void sjekkLoggInn_FeilPersonnummer() {
-        // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer");
 
         // act
-        String resultat = sikkerhetsController.sjekkLoggInn("","HeiHeiHei");
+        String resultat = sikkerhetsController.sjekkLoggInn("098","HeiHeiHei");
 
         // assert
         assertEquals("Feil i personnummer", resultat);
@@ -103,9 +101,6 @@ public class EnhetstestSikkerhetsController {
     // Tester sjekk LoggInn (Ikke Logget Inn - Feil Passord)
     @Test
     public void sjekkLoggInn_FeilPassord() {
-        // arrange
-        Mockito.when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
-
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","");
 
@@ -130,8 +125,6 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void LoggInnAdmin_OK(){
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Logget inn");
-
         session.setAttribute("Innlogget", "Admin");
 
         // act
@@ -145,12 +138,10 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void LoggInnAdmin_Feil(){
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Ikke logget inn");
-
         session.setAttribute("Innlogget", null);
 
         // act
-        String resultat = sikkerhetsController.loggInnAdmin("","");
+        String resultat = sikkerhetsController.loggInnAdmin("admin","admin");
         // assert
         assertEquals("Ikke logget inn", resultat);
 
