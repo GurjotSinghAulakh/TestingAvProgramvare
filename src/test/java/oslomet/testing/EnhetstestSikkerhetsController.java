@@ -91,7 +91,6 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void sjekkLoggInn_FeilPersonnummer() {
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i personnummer");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("","HeiHeiHei");
@@ -104,7 +103,6 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void sjekkLoggInn_FeilPassord() {
         // arrange
-        Mockito.when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Feil i passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("12345678901","");
@@ -130,7 +128,6 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void LoggInnAdmin_OK(){
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Logget inn");
 
         session.setAttribute("Innlogget", "Admin");
 
@@ -145,7 +142,6 @@ public class EnhetstestSikkerhetsController {
     @Test
     public void LoggInnAdmin_Feil(){
         // arrange
-        when(repository.sjekkLoggInn(anyString(),anyString())).thenReturn("Ikke logget inn");
 
         session.setAttribute("Innlogget", null);
 
