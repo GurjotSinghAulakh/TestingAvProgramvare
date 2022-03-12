@@ -117,9 +117,15 @@ public class EnhetstestSikkerhetsController {
      sikkerhetscontrolleren er void ) */
     @Test
     public void LoggUt(){
-        session.setAttribute("Innlogget", null);
-        // ikke ferdig med
+        //arrange
+        when(repository.sjekkLoggInn(anyString(), anyString())).thenReturn("OK");
+        sikkerhetsController.sjekkLoggInn("12345678901", "HeiHei");
         sikkerhetsController.loggUt();
+
+        //act
+        String resultat = sikkerhetsController.loggetInn();
+        //assert
+        assertNull(resultat);
     }
 
     /*------------------------------------- LoggInn Admin ------------------------------------*/
