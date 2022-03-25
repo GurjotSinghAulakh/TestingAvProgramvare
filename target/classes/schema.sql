@@ -7,7 +7,7 @@
 --
 -- Tabellstruktur for tabell `Konto`
 --
-DROP TABLE `Konto` IF EXISTS;
+DROP TABLE IF EXISTS `Konto`;
 CREATE TABLE IF NOT EXISTS `Konto` (
                                        `Kontonummer` varchar(20) NOT NULL,
                                        `Personnummer` varchar(11) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `Konto` (
 --
 -- Tabellstruktur for tabell `Kunde`
 --
-DROP TABLE `Kunde` IF EXISTS;
+DROP TABLE IF EXISTS `Kunde`;
 CREATE TABLE IF NOT EXISTS `Kunde` (
                                        `Personnummer` varchar(11) NOT NULL,
                                        `Fornavn` varchar(30) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `Kunde` (
 --
 -- Tabellstruktur for tabell `Poststed`
 --
-DROP TABLE `Poststed` IF EXISTS;
+DROP TABLE IF EXISTS `Poststed`;
 CREATE TABLE IF NOT EXISTS `Poststed` (
                                           `Postnr` varchar(4) NOT NULL,
                                           `Poststed` varchar(30) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `Poststed` (
 --
 -- Tabellstruktur for tabell `Transaksjon`
 --
-DROP TABLE `Transaksjon` IF EXISTS;
+DROP TABLE IF EXISTS `Transaksjon`;
 CREATE TABLE IF NOT EXISTS `Transaksjon` (
                                              `TxID` int(11) NOT NULL AUTO_INCREMENT,
                                              `FraTilKontonummer` varchar(20) NOT NULL,
@@ -56,3 +56,10 @@ CREATE TABLE IF NOT EXISTS `Transaksjon` (
                                              `Avventer` tinyint(1) NOT NULL,
                                              PRIMARY KEY (`TxID`)
 );
+
+
+
+
+
+
+

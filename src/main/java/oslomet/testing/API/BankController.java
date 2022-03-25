@@ -53,7 +53,7 @@ public class BankController {
     @PostMapping("/registrerBetaling")
     public String registrerBetaling(Transaksjon betaling) {
         String personnummer = sjekk.loggetInn();
-        if (personnummer!=null) {
+        if (personnummer!=null) { 
             return repository.registrerBetaling(betaling);
         }
         return null;
@@ -109,3 +109,4 @@ public class BankController {
         return repository.initDB(dataSource);
     }
 }
+

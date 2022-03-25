@@ -65,3 +65,20 @@ public class AdminKontoController {
         return repository.initDB(dataSource);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

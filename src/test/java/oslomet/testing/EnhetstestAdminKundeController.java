@@ -1,6 +1,5 @@
 package oslomet.testing;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -35,12 +34,15 @@ public class EnhetstestAdminKundeController {
     private Sikkerhet sjekk;
 
 
-    /*------------------------------------- Hent Alle Kunder ------------------------------------*/
+    /*------ Hent Alle Kunder ------*/
 
     // Tester hent alle kunder (Logget Inn - OK)
     @Test
     public void hentAlle_LoggetInn_OK(){
-        // arrage
+        // arrange
+
+        List<Kunde> kundeList = new ArrayList<>();
+
         Kunde kunde1 = new Kunde("01010110523", "Lene",
                 "Jensen", "Askerveien 22", "3270",
                 "Oslo","22224444", "HeiHei");
@@ -48,8 +50,6 @@ public class EnhetstestAdminKundeController {
         Kunde kunde2 = new Kunde("12345678901", "Per",
                 "Hansen", "Osloveien 82", "1234",
                 "Drammen", "12345678", "HeiHei");
-
-        List<Kunde> kundeList = new ArrayList<>();
 
         kundeList.add(kunde1);
         kundeList.add(kunde2);
@@ -65,23 +65,10 @@ public class EnhetstestAdminKundeController {
         assertEquals(kundeList, resultat);
     }
 
-    // Tester hent alle kunder (Logget Inn - Feil)
-    @Test
-    public void hentAlle_LoggetInn_Feil(){
-        // arrage
-        when(sjekk.loggetInn()).thenReturn(null);
-
-        // act
-        List<Kunde> resultat = adminKundeController.hentAlle();
-
-        // assert
-        assertNull(resultat);
-    }
-
     // Tester hent alle kunder (Ikke Logget Inn)
     @Test
     public void hentAlle_IkkeLoggetInn(){
-        // arrage
+        // arrange
         when(sjekk.loggetInn()).thenReturn(null);
 
         // act
@@ -91,12 +78,12 @@ public class EnhetstestAdminKundeController {
         assertNull(resultat);
     }
 
-    /*------------------------------------- Lagre Kunde ------------------------------------*/
+    /*------ Lagre Kunde ------*/
 
     // Tester lagre kunde (Logget Inn - OK)
     @Test
     public void lagreKunde_LoggetInn_OK(){
-        // arrage
+        // arrange
         Kunde kunde1 = new Kunde("01010110523", "Lene",
                 "Jensen", "Askerveien 22", "3270",
                 "Oslo","22224444", "HeiHei");
@@ -112,27 +99,10 @@ public class EnhetstestAdminKundeController {
         assertEquals("OK", resultat);
     }
 
-    // Tester lagre kunde (Logget Inn - Feil)
-    @Test
-    public void lagreKunde_LoggetInn_Feil(){
-        // arrage
-        Kunde kunde1 = new Kunde("01010110523", "Lene",
-                "Jensen", "Askerveien 22", "3270", "Oslo",
-                "22224444", "HeiHei");
-
-        when(sjekk.loggetInn()).thenReturn(null);
-
-        // act
-        String resultat = adminKundeController.lagreKunde(kunde1);
-
-        // assert
-        assertEquals("Ikke logget inn", resultat);
-    }
-
     // Tester lagre kunde (Ikke Logget Inn)
     @Test
     public void lagreKunde_IkkeLoggetInn(){
-        // arrage
+        // arrange
         Kunde kunde1 = new Kunde("01010110523", "Lene",
                 "Jensen", "Askerveien 22", "3270",
                 "Oslo","22224444", "HeiHei");
@@ -146,31 +116,12 @@ public class EnhetstestAdminKundeController {
         assertEquals("Ikke logget inn", resultat);
     }
 
-    // Tester lagreKunde LoggetInn Feil I Repo (Logget Inn - Feil)
-    @Test
-    public void lagreKunde_LoggetInn_Feil_I_Repo(){
-        // arrage
-        Kunde kunde1 = new Kunde("01010110523", "Lene",
-                "Jensen", "Askerveien 22", "3270",
-                "Oslo","22224444", "HeiHei");
-
-        when(sjekk.loggetInn()).thenReturn("01010110523");
-
-        when(repository.registrerKunde(kunde1)).thenReturn("Feil");
-
-        // act
-        String resultat = adminKundeController.lagreKunde(kunde1);
-
-        // assert
-        assertEquals("Feil", resultat);
-    }
-
-    /*------------------------------------- Endre Kunde ------------------------------------*/
+    /*------ Endre Kunde ------*/
 
     // Tester endre kunde (Logget Inn - OK)
     @Test
     public void endreKunde_LoggetInn_OK(){
-        // arrage
+        // arrange
         Kunde kunde1 = new Kunde("01010110523", "Lene",
                 "Jensen", "Askerveien 22", "3270",
                 "Oslo","22224444", "HeiHei");
@@ -184,23 +135,6 @@ public class EnhetstestAdminKundeController {
 
         // assert
         assertEquals("OK", resultat);
-    }
-
-    // Tester endre kunde (Logget Inn - Feil)
-    @Test
-    public void endreKunde_LoggetInn_Feil(){
-        // arrage
-        Kunde kunde1 = new Kunde("01010110523", "Lene",
-                "Jensen", "Askerveien 22", "3270",
-                "Oslo","22224444", "HeiHei");
-
-        when(sjekk.loggetInn()).thenReturn(null);
-
-        // act
-        String resultat = adminKundeController.endre(kunde1);
-
-        // assert
-        assertEquals("Ikke logget inn", resultat);
     }
 
     // Tester endre kunde (Ikke Logget Inn)
@@ -220,26 +154,7 @@ public class EnhetstestAdminKundeController {
         assertEquals("Ikke logget inn", resultat);
     }
 
-    // Tester endreKunde LoggetInn Feil I Repo (Logget Inn - Feil)
-    @Test
-    public void endreKunde_LoggetInn_Feil_I_Repo(){
-        // arrage
-        Kunde kunde1 = new Kunde("01010110523", "Lene",
-                "Jensen", "Askerveien 22", "3270",
-                "Oslo","22224444", "HeiHei");
-
-        when(sjekk.loggetInn()).thenReturn("01010110523");
-
-        when(repository.endreKundeInfo(kunde1)).thenReturn("Feil");
-
-        // act
-        String resultat = adminKundeController.endre(kunde1);
-
-        // assert
-        assertEquals("Feil", resultat);
-    }
-
-    /*------------------------------------- Slett Kunde ------------------------------------*/
+    /*------ Slett Kunde ------*/
 
     // Tester slett kunde (Logget Inn - OK)
     @Test
@@ -256,21 +171,6 @@ public class EnhetstestAdminKundeController {
         assertEquals("OK", resultat);
     }
 
-    // Tester slett kunde (Logget Inn - Feil)
-    @Test
-    public void slettKunde_LoggetInn_Feil(){
-        // arrange
-        when(sjekk.loggetInn()).thenReturn("01010110523");
-
-        when(repository.slettKunde(anyString())).thenReturn("Feil");
-
-        // act
-        String resultat = adminKundeController.slett("01010110523");
-
-        // assert
-        assertEquals("Feil", resultat);
-    }
-
     // Tester slett kunde (Ikke Logget Inn)
     @Test
     public void slettKunde_IkkeLoggetInn(){
@@ -284,3 +184,6 @@ public class EnhetstestAdminKundeController {
         assertEquals("Ikke logget inn", resultat);
     }
 }
+
+
+
